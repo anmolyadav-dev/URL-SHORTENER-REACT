@@ -1,0 +1,30 @@
+@keyframes snowfall {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+.snowflake {
+  position: fixed;
+  top: -10vh;
+  width: 10px;
+  height: 10px;
+  background: rgb(147, 220, 241);
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: snowfall 10s linear infinite;
+}
+
+.snowflake:nth-child(6n) {
+  filter: blur(2px);
+}
+.snowflake:nth-child(3n) {
+  filter: blur(1px);
+}
+
+.snowflake:nth-child(2n) {
+  filter: blur(0.5px);
+}
