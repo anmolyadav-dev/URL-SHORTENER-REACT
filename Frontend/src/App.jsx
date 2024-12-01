@@ -8,8 +8,8 @@ function App() {
   return (
     <>
       <SnowFlake />
-      <h2 className="text-center my-20 text-7xl font-bold text-blue-500 ">
-        URL - SHORTNER
+      <h2 className="text-center my-20 text-4xl md:6xl lg:7xl font-bold text-blue-500 ">
+        URL - SHORTENER
       </h2>
       <div className="flex items-center justify-center">
         <Card />

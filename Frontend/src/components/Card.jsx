@@ -1,19 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
+import {
+  RiCheckLine,
+  RiClipboardFill,
+  RiClipboardLine,
+} from "@remixicon/react";
 const Card = () => {
   const [url, setUrl] = useState("");
   const [shortUrl, setShortUrl] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [copied, setCopied] = useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!isValidUrl(url)) {
       setError("Please enter a valid URL");
       return;
     }
+
     if (!url.startsWith("https://") && !url.startsWith("http://")) {
-      setUrl("https://" + url);
+      setUrl("https://" + url.toLowerCase());
     }
     setError("");
 
@@ -25,8 +32,8 @@ const Card = () => {
           {
             url:
               !url.startsWith("https://") && !url.startsWith("http://")
-                ? "https://" + url
-                : url,
+                ? "https://" + url.toLowerCase()
+                : url.toLowerCase(),
           }
         );
         setLoading(false);
@@ -41,15 +48,22 @@ const Card = () => {
       console.log(error);
     }
   };
+  useEffect(() => {
+    setLoading(false);
+    if (url.length <= 5) {
+      setShortUrl("");
+    }
+  }, [url]);
+
   const handleCopy = () => {
-    navigator.clipboard
-      .writeText(shortUrl)
-      .then(() => {
-        alert("Short URL copied to clipboard");
-      })
-      .catch((err) => {
-        console.error("Failed to copy: ", err);
-      });
+    navigator.clipboard.writeText(shortUrl);
+    // .then(() => {
+    //   alert("Short URL copied to clipboard");
+    // })
+    // .catch((err) => {
+    //   console.error("Failed to copy: ", err);
+    // });
+    setCopied(true);
   };
   const isValidUrl = (url) => {
     const urlPattern = new RegExp(
@@ -65,18 +79,18 @@ const Card = () => {
   };
 
   return (
-    <div className="p-24 w-1/2 shadow-sm shadow-black z-[999] bg-black/30 backdrop-blur-sm">
+    <div className="py-24 md:px-10 m-4 w-full md:w-3/4 lg:w-1/2 shadow-sm shadow-black z-[999] bg-black/30 backdrop-blur-sm ">
       <form
         // action="POST"
         // target="/api/url"
-        className="text-center placeholder:text-white/10  "
+        className="text-center placeholder:text-white/10  flex flex-col p-3 gap-4 md:flex-row "
       >
         <input
           type="text"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
           placeholder="https://example.com"
-          className="p-3 bg-transparent shadow-sm shadow-blue-400 focus:shadow-blue-500 focus:outline-none w-1/2"
+          className="p-3 bg-transparent shadow-sm shadow-blue-400 focus:shadow-blue-500 focus:outline-none w-full md:w-3/4"
         />
         <button
           className="bg-blue-500 px-6 py-3 shadow-sm"
@@ -86,19 +100,31 @@ const Card = () => {
         </button>
       </form>
 
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center flex-col md:flex-row px-2 text-xl">
         {error && <div className="mt-4  text-red-500">{error}</div>}
         {shortUrl && (
-          <div className="mt-10 text-white ">
-            Short URL:{" "}
-            <a href={shortUrl} target="_blank" rel="noopener noreferrer">
+          <div className="mt-10 text-white  flex flex-col md:flex-row items-center">
+            Short URL :{" "}
+            <a
+              href={shortUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-2"
+            >
               {shortUrl}
             </a>
             <button
               onClick={handleCopy}
-              className="ml-4 bg-blue-500 px-4 py-2 rounded text-white"
+              className="  px-4 py-2 rounded text-white relative"
             >
-              Copy
+              {copied ? (
+                <div>
+                  <RiClipboardFill />{" "}
+                  <RiCheckLine className="text-green-500 absolute top-0 bottom-0 left-0 right-0 m-auto w-5" />
+                </div>
+              ) : (
+                <RiClipboardLine />
+              )}
             </button>
           </div>
         )}
