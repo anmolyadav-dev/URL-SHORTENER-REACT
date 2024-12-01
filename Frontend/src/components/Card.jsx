@@ -50,6 +50,7 @@ const Card = () => {
   };
   useEffect(() => {
     setLoading(false);
+    setCopied(false);
     if (url.length <= 5) {
       setShortUrl("");
     }
