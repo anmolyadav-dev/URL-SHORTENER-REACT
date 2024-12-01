@@ -100,7 +100,7 @@ const Card = () => {
         </button>
       </form>
 
-      <div className="flex items-center justify-center flex-col md:flex-row px-2 text-xl">
+      <div className="flex items-center justify-center flex-col md:flex-row px-2 md:text-xl">
         {error && <div className="mt-4  text-red-500">{error}</div>}
         {shortUrl && (
           <div className="mt-10 text-white  flex flex-col md:flex-row items-center">
