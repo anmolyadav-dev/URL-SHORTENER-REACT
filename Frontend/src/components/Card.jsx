@@ -5,6 +5,7 @@ const Card = () => {
   const [url, setUrl] = useState("");
   const [shortUrl, setShortUrl] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!isValidUrl(url)) {
@@ -16,6 +17,7 @@ const Card = () => {
     }
     setError("");
 
+    setLoading(true);
     try {
       if (url) {
         const res = await axios.post(
@@ -27,6 +29,7 @@ const Card = () => {
                 : url,
           }
         );
+        setLoading(false);
         const shortId = res.data.id;
         console.log(shortId);
 
@@ -34,6 +37,7 @@ const Card = () => {
         console.log(shortUrl);
       }
     } catch (error) {
+      setLoading(false);
       console.log(error);
     }
   };
@@ -78,7 +82,7 @@ const Card = () => {
           className="bg-blue-500 px-6 py-3 shadow-sm"
           onClick={handleSubmit}
         >
-          Create Short Url
+          {loading ? "Loading..." : "Create Short Url"}
         </button>
       </form>
 
