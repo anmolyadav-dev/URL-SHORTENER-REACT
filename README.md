@@ -23,7 +23,7 @@
 1. Fork and Clone the Repo
 
     ```bash
-    git clone https://github.com/anmolyadav-dev/URL-SHORTENER-REACT.git
+    git clone https://github.com/[your-username]/URL-SHORTENER-REACT.git
         # Copy and paste this in code editor (like vscode) terminal
     
 
