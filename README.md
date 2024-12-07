@@ -24,7 +24,7 @@
 
  
 ```bash
-    git clone https://github.com/[your-username]/[forked-repo-name].git
+git clone https://github.com/[your-username]/[forked-repo-name].git
         # Copy and paste this in code editor (like vscode) terminal
 ``` 
 
