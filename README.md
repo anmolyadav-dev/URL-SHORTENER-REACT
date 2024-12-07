@@ -22,10 +22,11 @@
 
 1. Fork and Clone the Repo
 
-    ```bash
+ 
+```bash
     git clone https://github.com/[your-username]/[forked-repo-name].git
         # Copy and paste this in code editor (like vscode) terminal
-    
+``` 
 
 Install backend  with npm
 
